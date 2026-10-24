@@ -1,5 +1,17 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><style>body{font-family:sans-serif;max-width:720px;margin:2em auto;padding:0 1em;line-height:1.5}</style><title>Faceless Uploads</title></head><body>
 <h1>Faceless Uploads</h1>
+<div id="tt-code" style="display:none;border:2px solid #333;padding:1em;margin:1em 0;border-radius:8px;background:#f6f6f6">
+<p style="margin:0 0 .5em"><b>Authorization code received.</b> Copy it, or copy the full address-bar URL.</p>
+<div id="tt-code-val" style="font-family:monospace;font-size:1.6em;word-break:break-all;user-select:all"></div>
+<p><button id="tt-copy" style="font-size:1.2em;padding:.4em 1em">Copy code</button> <button id="tt-copy-url" style="font-size:1.2em;padding:.4em 1em">Copy full URL</button> <span id="tt-msg"></span></p>
+<p id="tt-err" style="color:#b00"></p></div>
+<script>(function(){var p=new URLSearchParams(location.search),c=p.get("code"),e=p.get("error");
+if(!c&&!e)return;var box=document.getElementById("tt-code");box.style.display="block";
+if(e){document.getElementById("tt-err").textContent="Error: "+e+" "+(p.get("error_description")||"");}
+if(c)document.getElementById("tt-code-val").textContent=c;
+function cp(t){var m=document.getElementById("tt-msg");(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){m.textContent="Copied!"},function(){m.textContent="Select the text and copy manually."});}
+document.getElementById("tt-copy").onclick=function(){cp(c||"")};
+document.getElementById("tt-copy-url").onclick=function(){cp(location.href)};})();</script>
 <p>Faceless Uploads is a private desktop tool used only by its owner to upload his own videos to his own YouTube channels, <b>Maps Facts Daily</b> and <b>Strange Stories</b>. It is not offered to the public.</p>
 <h2>What it does</h2><ul><li>Uploads finished video files, with title, description and tags, to the owner's YouTube channel via the YouTube Data API.</li><li>Reads basic channel and video information to confirm uploads succeeded.</li></ul>
 <p>It requests only these Google scopes: <code>youtube.upload</code> and <code>youtube.readonly</code>. OAuth tokens are stored locally on the owner's computer and are never shared or sold.</p>
